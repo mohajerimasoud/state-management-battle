@@ -1,13 +1,82 @@
+:root {
+  --dark: #22223b;
+  --bg: #4a4e69;
+  --text: #a8dadc;
+  --white: #f2e9e4;
+  --gray: #c9ada7;
+  --red: #ff595e;
+  --green: #588157;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--dark);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--gray);
+}
+p {
+  color: var(--white);
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.App {
+  width: 80%;
+  margin: auto;
+}
+
+.item {
+  background: var(--bg);
+  font-size: larger;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.done-item {
+  border: 2px solid var(--red);
+}
+.todo-item {
+  border: 2px solid var(--green);
+  opacity: 0.7;
+}
+
+.item-title {
+  font-size: large;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.item-button {
+  background: transparent;
+  font-size: 22px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.item-button:hover {
+  transform: scale(1.3);
+}
+
+.back-button {
+  background: transparent;
+  font-size: 26px;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
