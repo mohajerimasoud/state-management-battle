@@ -1,49 +1,58 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Item from "../Item/Item";
+import { TodoCnx } from "../Todo.context";
 
-const Mock = [
-  {
-    id: 1,
-    title: "delectus aut autem",
-    completed: false,
-  },
-  {
-    id: 2,
-    title: "quis ut nam facilis et officia qui",
-    completed: true,
-  },
-  {
-    id: 3,
-    title: "fugiat veniam minus",
-    completed: false,
-  },
-];
 const HomePage = () => {
+  const {
+    FetchDataFromInternet,
+    Todos,
+    loading,
+    error,
+    changeState,
+    DeleteItem,
+  } = TodoCnx();
+
+  useEffect(() => {
+    FetchDataFromInternet();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div>
-      <p>To do :</p>
+      {loading ? (
+        <p>Loading ...</p>
+      ) : (
+        <>
+          <p>To do :</p>
 
-      {Mock.filter((item) => !item.completed && item).map((item) => {
-        return (
-          <Item
-            id={item.id}
-            title={item.title}
-            completed={item.completed}
-            key={item.id}
-          />
-        );
-      })}
-      <p>Done :</p>
-      {Mock.filter((item) => item.completed && item).map((item) => {
-        return (
-          <Item
-            id={item.id}
-            title={item.title}
-            completed={item.completed}
-            key={item.id}
-          />
-        );
-      })}
+          {Todos.filter((item) => !item.completed && item).map((item) => {
+            return (
+              <Item
+                DeleteItem={DeleteItem}
+                toggle={changeState}
+                id={item.id}
+                title={item.title}
+                completed={item.completed}
+                key={item.id}
+              />
+            );
+          })}
+          <p>Done :</p>
+          {Todos.filter((item) => item.completed && item).map((item) => {
+            return (
+              <Item
+                DeleteItem={DeleteItem}
+                toggle={changeState}
+                id={item.id}
+                title={item.title}
+                completed={item.completed}
+                key={item.id}
+              />
+            );
+          })}
+        </>
+      )}
+      {error && <pre>error : {JSON.stringify(error, null, 2)}</pre>}
     </div>
   );
 };
