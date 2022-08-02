@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DetailPage from "./Components/DetailPage/DetailPage";
 import HomePage from "./Components/HomePage/HomePage";
-import { observer } from "mobx-react";
+import { TodosStore } from "./Components/todos.mobx";
 
 const App = () => {
+  useEffect(() => {
+    TodosStore.fetchTodos();
+  }, []);
+
   return (
     <div className="App">
       <h1>State Management Battle</h1>

@@ -15,6 +15,31 @@ class Todos {
         this.todos = data;
       });
   }
+
+  toggleTodoStatus(id) {
+    const newTodos = this.todos.map((td) => {
+      if (td.id === id) {
+        return {
+          ...td,
+          completed: !td.completed,
+        };
+      } else {
+        return td;
+      }
+    });
+
+    this.todos = newTodos;
+  }
+
+  deleteItem(id) {
+    const newTodos = this.todos.filter((td) => td.id !== id);
+    this.todos = newTodos;
+  }
+
+  findDataWithId(id) {
+    const item = this.todos.find((itm) => itm.id === +id);
+    return item?.title;
+  }
 }
 
-export const TotosStore = new Todos();
+export const TodosStore = new Todos();
