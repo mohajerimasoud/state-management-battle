@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Item = (props) => {
-  const { id, title, completed } = props;
+  const { id, title, completed, deleteItem, toggle } = props;
 
   return (
     <div className={`item ${completed ? "done-item" : "todo-item"} `}>
@@ -13,7 +13,7 @@ const Item = (props) => {
         <button
           className="item-button"
           onClick={() => {
-            console.log("delete", id);
+            deleteItem(id);
           }}
         >
           🗑
@@ -22,7 +22,7 @@ const Item = (props) => {
         <button
           className="item-button"
           onClick={() => {
-            console.log("complete", id);
+            toggle(id);
           }}
         >
           {completed ? <div>👆</div> : <div>👇</div>}

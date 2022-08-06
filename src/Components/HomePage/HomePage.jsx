@@ -1,49 +1,63 @@
 import React from "react";
 import Item from "../Item/Item";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteItem, toggleState } from "../../redux/todo.store";
 
-const Mock = [
-  {
-    id: 1,
-    title: "delectus aut autem",
-    completed: false,
-  },
-  {
-    id: 2,
-    title: "quis ut nam facilis et officia qui",
-    completed: true,
-  },
-  {
-    id: 3,
-    title: "fugiat veniam minus",
-    completed: false,
-  },
-];
 const HomePage = () => {
+  const loading = useSelector((state) => state.todo.loading);
+  const todo = useSelector((state) => state.todo.todo);
+  const dispatch = useDispatch();
+
+  const deleteItemById = (id) => {
+    dispatch(deleteItem({ id }));
+  };
+
+  const toggleItemById = (id) => {
+    dispatch(toggleState({ id }));
+  };
+
   return (
     <div>
       <p>To do :</p>
-
-      {Mock.filter((item) => !item.completed && item).map((item) => {
-        return (
-          <Item
-            id={item.id}
-            title={item.title}
-            completed={item.completed}
-            key={item.id}
-          />
-        );
-      })}
+      {!loading &&
+        todo
+          ?.filter((item) => !item.completed && item)
+          .map((item) => {
+            return (
+              <Item
+                toggle={(id) => {
+                  toggleItemById(id);
+                }}
+                deleteItem={(id) => {
+                  deleteItemById(id);
+                }}
+                id={item.id}
+                title={item.title}
+                completed={item.completed}
+                key={item.id}
+              />
+            );
+          })}
       <p>Done :</p>
-      {Mock.filter((item) => item.completed && item).map((item) => {
-        return (
-          <Item
-            id={item.id}
-            title={item.title}
-            completed={item.completed}
-            key={item.id}
-          />
-        );
-      })}
+      {!loading &&
+        todo
+          ?.filter((item) => item.completed && item)
+          .map((item) => {
+            return (
+              <Item
+                toggle={(id) => {
+                  toggleItemById(id);
+                }}
+                deleteItem={(id) => {
+                  deleteItemById(id);
+                }}
+                id={item.id}
+                title={item.title}
+                completed={item.completed}
+                key={item.id}
+              />
+            );
+          })}
     </div>
   );
 };
